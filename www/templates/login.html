@@ -1,0 +1,29 @@
+<ion-view view-title="Iniciar Sesión" name="login-view">
+  <ion-pane>    
+      <ion-content scroll ="false">
+          <section class="login-container" >
+            <div id="df_logo"> 
+              <img src="css/images/logo.png" align= "middle">
+            </div > 
+            <div class="vertical-centered-text">
+               <h1>¡Bienvenido!</h1>
+            </div>          
+            <div class = "list">
+                <label class = "item item-input">
+                    <span class = "input-label" >Email</span>
+                    <input type = "text" placeholder="Escriba aquí" ng-model="data.username">
+                </label>
+                <label class = "item item-input">
+                    <span class = "input-label">Contraseña</span>
+                    <!--input = angular js -->
+                    <input type = "password" placeholder="Escriba aquí" ng-model="data.password">
+                </label>
+                <div class = "padding">
+                    <button class="button button-block button-balanced " ng-click="login(data)">Entrar
+                    </button>                
+               </div>
+            </div>
+          </section>      
+      </ion-content>
+    </ion-pane>
+</ion-view>
