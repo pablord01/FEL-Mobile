@@ -1,18 +1,7 @@
 angular.module('starter')
 
-.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS,webService) {
-  $scope.username = AuthService.username();
-  $scope.prueba = webService.getData('api/token/',{
-    grant_type: 'password', 
-    username:'usuario@defontana.com',
-    password:'awesomepassword'
-  },  $scope.prueba2);
-  $scope.prueba2 = function(json,datos){
-    console.log(json);
-  };
-  $scope.setCurrentUsername = function(name) {
-    $scope.username = name;
-  };
+.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService) {
+
 })
 //controlador del login
 .controller('LoginCtrl', function($scope, $state, $ionicPopup, AuthService) {
@@ -21,7 +10,10 @@ angular.module('starter')
   $scope.login = function(data) {
     AuthService.login(data.username, data.password).then(function(authenticated) {
       $state.go('dashboard', {}, {reload: true});
-      $scope.setCurrentUsername(data.username);
+      /*var alertPopup = $ionicPopup.alert({
+        title: '¡Error!',
+        template: AuthService.username()
+      });*/ //aca imprime el nombre de usuario una vez que loguea, descomentalo y podras verlo
     }, function(err) {
       var alertPopup = $ionicPopup.alert({
         title: '¡Error!',
@@ -30,8 +22,8 @@ angular.module('starter')
     });
   };
 })
-//controlador del dashboard, con las acciones para cada boton
-.controller('DashCtrl', function($scope, $state, $http, $ionicPopup, AuthService,webService) {
+
+.controller('DashCtrl', function($scope, $state, $http, $ionicPopup, AuthService) {
   
   $scope.logout = function() {
     AuthService.logout();
