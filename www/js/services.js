@@ -1,5 +1,5 @@
 angular.module('starter')
- 
+ // servicio de login, provee las funcionalidades para el inicio de sesion
 .service('AuthService', function($q, $http, USER_ROLES) {
   var LOCAL_TOKEN_KEY = 'yourTokenKey';
   var username = '';
@@ -25,14 +25,12 @@ angular.module('starter')
     isAuthenticated = true;
     authToken = token;
  
-    if (username == 'admin') {
+    if (username == 'admin@usach.cl') {
       role = USER_ROLES.admin
     }
-    if (username == 'user') {
+    if (username == 'user@usach.cl') {
       role = USER_ROLES.public
     }
- 
-    // Set the token as header for your requests!
     $http.defaults.headers.common['X-Auth-Token'] = token;
   }
  
@@ -46,8 +44,7 @@ angular.module('starter')
  
   var login = function(name, pw) {
     return $q(function(resolve, reject) {
-      if ((name == 'admin' && pw == '1') || (name == 'user' && pw == '1')) {
-        // Make a request and receive your auth token from your server
+      if ((name == 'admin@usach.cl' && pw == '12345') || (name == 'user@usach.cl' && pw == '12345')) {
         storeUserCredentials(name + '.yourServerToken');
         resolve('Login success.');
       } else {
@@ -95,6 +92,25 @@ angular.module('starter')
   };
 })
  
+.factory('webService', function($http) {
+    var getData = function(url,datos) {
+     $.post( "http://financiaenlinea.defontana.com/api/token",{grant_type:'password', 
+      username:'usuario@defontana.com',
+      password:'awesomepassword'},function( data ) {
+        console.log(data);
+      return data;
+      });
+    };
+    return { getData: getData };
+})
+
 .config(function ($httpProvider) {
   $httpProvider.interceptors.push('AuthInterceptor');
 });
+
+
+//$.post( "http://financiaenlinea.defontana.com/api/token",{grant_type:'password', 
+//   username:'usuario@defontana.com',
+//   password:'awesomepassword'},function( data ) {
+//  $( ".result" ).html( data );
+//});

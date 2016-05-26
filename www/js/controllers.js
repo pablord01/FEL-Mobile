@@ -1,72 +1,40 @@
 angular.module('starter')
 
-.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS) {
+.controller('AppCtrl', function($scope, $state, $ionicPopup, AuthService, AUTH_EVENTS,webService) {
   $scope.username = AuthService.username();
-  //$scope.prueba = Sha1.hash(AuthService.token());
- 
-  $scope.$on(AUTH_EVENTS.notAuthorized, function(event) {
-    var alertPopup = $ionicPopup.alert({
-      title: 'Unauthorized!',
-      template: 'You are not allowed to access this resource.'
-    });
-  });
- 
-  $scope.$on(AUTH_EVENTS.notAuthenticated, function(event) {
-    AuthService.logout();
-    $state.go('login');
-    var alertPopup = $ionicPopup.alert({
-      title: 'Session Lost!',
-      template: 'Sorry, You have to login again.'
-    });
-  });
- 
+  $scope.prueba = webService.getData('api/token/',{
+    grant_type: 'password', 
+    username:'usuario@defontana.com',
+    password:'awesomepassword'
+  },  $scope.prueba2);
+  $scope.prueba2 = function(json,datos){
+    console.log(json);
+  };
   $scope.setCurrentUsername = function(name) {
-    $scope.username = 'name';
+    $scope.username = name;
   };
 })
+//controlador del login
 .controller('LoginCtrl', function($scope, $state, $ionicPopup, AuthService) {
   $scope.data = {};
  
   $scope.login = function(data) {
     AuthService.login(data.username, data.password).then(function(authenticated) {
-      $state.go('main.dash', {}, {reload: true});
+      $state.go('dashboard', {}, {reload: true});
       $scope.setCurrentUsername(data.username);
     }, function(err) {
       var alertPopup = $ionicPopup.alert({
-        title: 'Login failed!',
-        template: 'Please check your credentials!'
+        title: '¡Error!',
+        template: 'Por favor verifica tu información'
       });
     });
   };
 })
-.controller('DashCtrl', function($scope, $state, $http, $ionicPopup, AuthService) {
+//controlador del dashboard, con las acciones para cada boton
+.controller('DashCtrl', function($scope, $state, $http, $ionicPopup, AuthService,webService) {
+  
   $scope.logout = function() {
     AuthService.logout();
     $state.go('login');
-  };
- 
-  $scope.performValidRequest = function() {
-    $http.get('http://localhost:8100/valid').then(
-      function(result) {
-        $scope.response = result;
-      });
-  };
- 
-  $scope.performUnauthorizedRequest = function() {
-    $http.get('http://localhost:8100/notauthorized').then(
-      function(result) {
-        // No result here..
-      }, function(err) {
-        $scope.response = err;
-      });
-  };
- 
-  $scope.performInvalidRequest = function() {
-    $http.get('http://localhost:8100/notauthenticated').then(
-      function(result) {
-        // No result here..
-      }, function(err) {
-        $scope.response = err;
-      });
   };
 });

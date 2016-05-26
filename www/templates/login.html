@@ -1,9 +1,8 @@
-<ion-view view-title="Iniciar Sesión" name="login-view">
-  <ion-pane>    
+ <ion-pane>    
       <ion-content scroll ="false">
           <section class="login-container" >
             <div id="df_logo"> 
-              <img src="css/images/logo.png" align= "middle">
+              <img src="css/images/logo_blanco.png" align= "middle">
             </div > 
             <div class="vertical-centered-text">
                <h1>¡Bienvenido!</h1>
@@ -11,19 +10,28 @@
             <div class = "list">
                 <label class = "item item-input">
                     <span class = "input-label" >Email</span>
-                    <input type = "text" placeholder="Escriba aquí" ng-model="data.username">
+                    <input type = "text" placeholder="Escriba aquí" ng-model="data.username" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
                 </label>
                 <label class = "item item-input">
                     <span class = "input-label">Contraseña</span>
                     <!--input = angular js -->
-                    <input type = "password" placeholder="Escriba aquí" ng-model="data.password">
+                    <input type = "password" placeholder="Escriba aquí" ng-model="data.password" ng-minlength="1">
                 </label>
                 <div class = "padding">
                     <button class="button button-block button-balanced " ng-click="login(data)">Entrar
                     </button>                
                </div>
             </div>
+            <ul class="soc">
+              <li><a class="soc-facebook" href="#"></a></li>
+              <li><a class="soc-twitter" href="#"></a></li>
+              <li><a class="soc-google" href="#"></a></li>
+              <li><a class="soc-linkedin" href="#"></a></li>
+              <li><a class="soc-instagram" href="#"></a></li>
+              <li><a class="soc-email1 soc-icon-last" href="#"></a></li>
+            </ul>
           </section>      
       </ion-content>
     </ion-pane>
-</ion-view>
+
+

@@ -1,0 +1,72 @@
+
+.menu-container {
+    position: relative;
+    display: -webkit-flex;
+    -webkit-flex-direction: column;
+    height: 100%;
+    background-image: url("images/menu1.jpg");
+    background-size:100% 100%;
+}
+
+.vertical-centered-text {
+    height: 10%;
+    width: 100%;
+    margin-top: 5%;
+    background: rgb(104,99,99); /* Fallback for older browsers without RGBA-support */
+    background: rgba(104,99,99,0.5);
+    display: table;  
+    font-family: "Lucida Console";
+    font-weight:bold;
+     
+    text-align: center;
+    vertical-align: middle;   
+    /*opacity: 0.5;*/
+
+
+}
+#df_logo{
+    margin-top: 2%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+   
+}
+.vertical-centered-text > * {
+    color: white;
+    display: table-cell;
+    vertical-align: middle;
+    
+    
+  }
+ #financia{
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 1%;
+    margin-top: 26%;
+    position:relative;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid;
+
+  }
+ .botones-oferta{   
+    margin: 0 auto;
+    margin-bottom: 1%;
+    position:relative;
+    display: block;    
+  }
+ .salir-contacto{
+    margin: 0 auto;
+    margin-bottom: 1%;
+    position:relative;
+    display: block;
+  }
+ 
+.ion-social-usd{
+color: white;
+
+ }
+.ion-ios-arrow-forward{
+color: orange;
+ }
+ 
