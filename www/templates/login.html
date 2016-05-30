@@ -1,4 +1,4 @@
- <ion-pane>    
+ <!-- <ion-pane>    
       <ion-content scroll ="false">
           <section class="login-container" >
             <div id="df_logo"> 
@@ -14,7 +14,7 @@
                 </label>
                 <label class = "item item-input">
                     <span class = "input-label">Contraseña</span>
-                    <!--input = angular js -->
+                    <!--input = angular js 
                     <input type = "password" placeholder="Escriba aquí" ng-model="data.password" ng-minlength="1">
                 </label>
                 <div class = "padding">
@@ -33,5 +33,43 @@
           </section>      
       </ion-content>
     </ion-pane>
+-->
+<body ng-app="todo">
+  <ion-view>
+    <ion-content scroll="false" padding="">
+      <section class="login-container padding">
+        
+        <div class="logo-defontana">
+          <img src="img/logo-defontana-B.png">
+          <p class="brand-descripcion">Financiar tu empresa debería ser simple, rápido y seguro.</p>
+        </div>
 
+        <div class="login-form">
+          <div class="list list-inset">
+            <label class="item item-input">
+              <i class="icon ion-at placeholder-icon"></i>
+              <input type="text" placeholder="Correo electrónico" ng-model="data.username" pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}">
+            </label>
+
+            <label class="item item-input">
+              <i class="icon ion-key placeholder-icon"></i>
+              <input type="password" placeholder="Contraseña" ng-model="data.password" ng-minlength="5">
+            </label>
+          </div>
+          <button ng-disabled="!data.username || !data.password" class="button button-block button-naranja-df" ng-click="login(data)">Iniciar Sesión</button>
+        </div>
+
+        <div class="footer-social">
+          <i class="ion-social-facebook"></i>
+          <i class="ion-social-twitter"></i>
+          <i class="ion-social-linkedin"></i>
+          <p class="copyright">Copyright © 2016 - Defontana.</p>
+        </div>
+        
+      </section>
+    </ion-content>
+  </ion-view>
+
+
+</body>
 

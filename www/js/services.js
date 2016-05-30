@@ -1,27 +1,27 @@
 angular.module('starter')
  // servicio de login, provee las funcionalidades para el inicio de sesion
-.service('AuthService', function($q, $http) {
+.service('AuthService', function($q, $http,$ionicLoading,$ionicPopup, $state) {
+  var LOCAL_TOKEN = '';
+  var LOCAL_USER = '';
   var username = '';
   var isAuthenticated = false;
-  var authToken;
+  var authToken = '';
 
   function loadUserCredentials() {
-    var token = window.localStorage.getItem(authToken);
-    var user = window.localStorage.getItem(username);
-    if (token & user) {
-      useCredentials(token,user);
+    authToken = window.localStorage.getItem(LOCAL_TOKEN);
+    if (authToken) {
+      useCredentials(authToken);
     }
   }
  
-  function storeUserCredentials(token,user) {
-    window.localStorage.setItem(authToken, token);
-    window.localStorage.setItem(username, user);
+  function storeUserCredentials(token) {
+    authToken = token;
+    window.localStorage.setItem(LOCAL_TOKEN, token);
     isAuthenticated = true;
-    useCredentials(token,user);
+    useCredentials(token);
   }
  
-  function useCredentials(token,user) {
-    username = user;
+  function useCredentials(token) {
     isAuthenticated = true;
     authToken = token;
   }
@@ -30,19 +30,27 @@ angular.module('starter')
     authToken = undefined;
     username = '';
     isAuthenticated = false;
-    window.localStorage.removeItem(authToken);
+    window.localStorage.removeItem(LOCAL_TOKEN);
   }
  
   var login = function(name, pw) {
+    $ionicLoading.show({
+        template: 'Iniciando sesión'
+      });
     return $q(function(resolve, reject) {
       $.post( "http://financiaenlinea.defontana.com/api/token",{grant_type:'password', 
         username: name,
-        password: pw},function( data ) {
-        // console.log(data["access_token"]); aca imprime el token por la consola del navegador,
-        // descomenta para que veas que esta bien
-        storeUserCredentials(data["token_type"]+" "+data["access_token"],name);
-        resolve('login success');
-        return data;
+        password: pw}, function( data ) { 
+          received = data["token_type"]+' '+data["access_token"];
+          storeUserCredentials(received);
+          $ionicLoading.hide();
+          resolve('login success');
+      }).error(function(){
+      var alertPopup = $ionicPopup.alert({
+          title: '¡Error!',
+          template: 'Por favor verifica tu información'
+        });
+        $ionicLoading.hide();
       });
     });
   };

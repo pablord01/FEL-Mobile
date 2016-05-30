@@ -4,16 +4,15 @@ angular.module('starter')
 
 })
 //controlador del login
-.controller('LoginCtrl', function($scope, $state, $ionicPopup, AuthService) {
+.controller('LoginCtrl', function($scope, $state, $ionicPopup, $ionicLoading, AuthService) {
   $scope.data = {};
  
   $scope.login = function(data) {
+    $ionicLoading.show({
+        template: 'Iniciando sesión'
+      });
     AuthService.login(data.username, data.password).then(function(authenticated) {
-      $state.go('dashboard', {}, {reload: true});
-      /*var alertPopup = $ionicPopup.alert({
-        title: '¡Error!',
-        template: AuthService.username()
-      });*/ //aca imprime el nombre de usuario una vez que loguea, descomentalo y podras verlo
+      $state.go('tabs.home', {}, {reload: true});
     }, function(err) {
       var alertPopup = $ionicPopup.alert({
         title: '¡Error!',
@@ -23,8 +22,8 @@ angular.module('starter')
   };
 })
 
-.controller('DashCtrl', function($scope, $state, $http, $ionicPopup, AuthService) {
-  
+
+.controller('Tabs', function($scope, $state, $http, $ionicPopup, AuthService) {
   $scope.logout = function() {
     AuthService.logout();
     $state.go('login');
