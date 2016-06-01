@@ -755,6 +755,7 @@ $dark:                            #444 !default;
 .ion-unlocked:before,
 .ion-upload:before,
 .ion-usb:before,
+.ion-social-usd,
 .ion-videocamera:before,
 .ion-volume-high:before,
 .ion-volume-low:before,
@@ -6626,13 +6627,15 @@ button.item.item-button-right {
  * --------------------------------------------------
  */
 .list-header {
+  border-bottom: 5px;
   margin-top: 20px;
-  padding: 5px 15px;
+  padding: 15px 15px;
   background-color: transparent;
   color: #222;
   font-weight: bold; }
 
 .card.list .list-item {
+  
   padding-right: 1px;
   padding-left: 1px; }
 
@@ -6643,8 +6646,9 @@ button.item.item-button-right {
  */
 .card,
 .list-inset {
+
   overflow: hidden;
-  margin: 20px 10px;
+  margin: 7px 10px;
   border-radius: 2px;
   background-color: #fff; }
 
@@ -6653,6 +6657,7 @@ button.item.item-button-right {
   padding-bottom: 1px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
   .card .item {
+
     border-left: 0;
     border-right: 0; }
   .card .item:first-child {
@@ -6662,7 +6667,8 @@ button.item.item-button-right {
 
 .padding .card, .padding .list-inset {
   margin-left: 0;
-  margin-right: 0; }
+  margin-right: 0;
+   }
 
 .card .item:first-child,
 .list-inset .item:first-child,
@@ -9922,6 +9928,7 @@ a.button {
     left: 10px;
     color: #fff; }
 
+
 .dis-financiar {
   padding: 5px 0;
   text-align: center;
@@ -9967,6 +9974,20 @@ a.button {
   background: #fff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3); }
 
+/*Agregado por Usach*/
+.notifica-home .financia {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 -2px 0 0 #3399ff; }
+  .notifica-home .financia:before {
+    font-family: 'Ionicons';
+    font-size: 18px;
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    content: '\f353';
+    color: #C8C8C8; }
+/**/
+
+
 .notifica-home .pendientes {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), inset 0 -2px 0 0 #49d68c; }
   .notifica-home .pendientes:before {
@@ -10002,3 +10023,66 @@ a.button {
 
 .tab-df .tab-item-active {
   color: #2B90A2; }
+
+
+/*
+agregado boton "solicitar financiamiento fijo"
+*/
+
+.fixed-outside{
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  position: absolute;
+  bottom: 60px;  
+  width: 92%;  
+  }
+
+.card{
+margin-top: -17px !important;
+}
+
+
+.has-subheader {
+    top: 160px;
+}
+
+.ion-nifty-modal {
+  width: 90%;
+  min-height: 0 !important;
+  height: 80%;
+  top: 10%;
+  left: 5%;
+  right: 5%;
+  bottom: 5%;
+  background-color: transparent;
+  border-radius: 10px;
+  
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); }
+
+.ion-nifty-modal .ion-modal-content-custom {
+  width: 100%;
+  height: 100%;
+  color: #FFF;
+  background-color: #FFF;
+  border-radius: 10px; }
+
+/* Fix modal backdrop for smaller devices */
+@media (max-width: 679px) {
+  .active .modal-backdrop-bg {
+    opacity: .5; }
+  .modal-backdrop-bg {
+    -webkit-transition: opacity 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
+    background-color: #000;
+    opacity: 0; } }
+/*
+.has-subheader2 {
+  top: 40px; }
+*/
+.confirmaSolicitud{
+margin-top: 80%;
+text-align: center;
+
+
+}

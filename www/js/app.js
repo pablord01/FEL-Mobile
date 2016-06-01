@@ -47,7 +47,8 @@ angular.module('starter', ['ionic'])
       url: "/solicitud",
       views: {
         'solicitud-tab': {
-          templateUrl: "templates/solicitud.html"
+          templateUrl: "templates/solicitud.html",
+          controller: 'solicitudCtrl'
         }
       }
     })
@@ -67,7 +68,7 @@ angular.module('starter', ['ionic'])
   
   $urlRouterProvider.otherwise(function ($injector, $location) {
     var $state = $injector.get("$state");
-    $state.go("tabs.home");
+    $state.go('tabs.home', {}, {reload: true});
   });
 })
 .controller('NavCtrl', function($scope, $ionicSideMenuDelegate) {

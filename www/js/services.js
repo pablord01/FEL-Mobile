@@ -1,6 +1,6 @@
-angular.module('starter')
+var felServices = angular.module('starter');
  // servicio de login, provee las funcionalidades para el inicio de sesion
-.service('AuthService', function($q, $http,$ionicLoading,$ionicPopup, $state) {
+felServices.service('AuthService', function($q, $http,$ionicLoading,$ionicPopup, $state) {
   var LOCAL_TOKEN = '';
   var LOCAL_USER = '';
   var username = '';
@@ -32,27 +32,40 @@ angular.module('starter')
     isAuthenticated = false;
     window.localStorage.removeItem(LOCAL_TOKEN);
   }
- 
+  
   var login = function(name, pw) {
     $ionicLoading.show({
         template: 'Iniciando sesión'
       });
     return $q(function(resolve, reject) {
-      $.post( "http://financiaenlinea.defontana.com/api/token",{grant_type:'password', 
-        username: name,
-        password: pw}, function( data ) { 
-          received = data["token_type"]+' '+data["access_token"];
+       var settings = {
+         "async": true,
+         "crossDomain": true,
+         "url": "http://54.200.26.254/api2/token",
+         "method": "POST",
+         "headers": {
+             "content-type": "application/x-www-form-urlencoded"
+         },
+         "data": {
+             "grant_type": "password",
+             "username": name,
+             "password": pw
+         }
+       }
+ 
+       $.ajax(settings).done(function (data) {
+         received = data["token_type"]+' '+data["access_token"];
           storeUserCredentials(received);
           $ionicLoading.hide();
           resolve('login success');
-      }).error(function(){
+       }).error(function(){
       var alertPopup = $ionicPopup.alert({
           title: '¡Error!',
           template: 'Por favor verifica tu información'
         });
         $ionicLoading.hide();
       });
-    });
+     });
   };
  
   var logout = function() {
@@ -69,4 +82,47 @@ angular.module('starter')
     username: function() {return username;},
     token: function() {return authToken;},
   };
-})
+});
+
+felServices.factory('getData', function($q) {
+   return{
+    getDash : function(token,callback){
+        var settings = {
+          "async": true,
+          "crossDomain": true,
+          "url": "http://54.200.26.254/api2/Dashboard?idExternalEnterprise=ENT1",
+          "method": "GET",
+          "headers": {
+            "access-control-allow-origin": "*",
+            "accept": "application/json",
+            "content-type": "application/json",
+            "authorization": token
+          }
+        };
+        $.ajax(settings).done(function (response) {
+          callback(response);
+        }).error(function(){
+          callback(0);
+        });
+    },
+    getDocuments: function(token,callback){
+      var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://54.200.26.254/api2/Document/All?idExternalEnterprise=ENT2",
+        "method": "GET",
+        "headers": {
+          "access-control-allow-origin": "*",
+          "accept": "application/json",
+          "content-type": "application/json",
+          "authorization": token
+        }
+      };
+      $.ajax(settings).done(function (response) {
+        callback(response);
+      }).error(function(err){
+        callback(0);
+      });
+    }
+  }
+});

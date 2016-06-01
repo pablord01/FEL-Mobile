@@ -1,28 +1,29 @@
 
 <ion-view title="solicitud">
-	
-	<ion-content padding="true" class="has-header has-footer  hass-footer" >
-					<div class="dis-financiar-small">
-						<h2>$ 265.200.000</h2>
-						<p>Disponible a financiar</p>
-					</div>
-					
-					<div class="list list-inset" >
+	<ion-content padding="true" scroll = "false">
+		<div class="dis-financiar-small">
+			<h2>$ 265.200.000</h2>
+			<p>Disponible a financiar</p>
+		</div>					
+		<div class="list list-inset" >
 
-						<label class="item item-input">
-							<i class="icon ion-search placeholder-icon"></i>
-							<input type="text" placeholder="Buscar Documento">
-						</label>
-					</div>
-					
-					
+			<label class="item item-input">
+				<i class="icon ion-search placeholder-icon"></i>
+				<input type="text" placeholder="Buscar Documento">
+			</label>
+		</div>	
+	</ion-content>
+	
+
+	<ion-content padding="true" class="has-header has-subheader padding morePadding has-footer  hass-footer" >	
+
 					<div class="list card">
 						<ul class="list">
 							<li class="item item-checkbox checkbox-circle">
 								<div class="checkbox">
 									<input type="checkbox">
 								</div>
-								<h2><a href="#">Nombre Documento</a></h2>
+								<h2><a ng-click="openModal(1)">Nombre Documento</a></h2>
 								<p>valor: $23.000.000</p>
 							</li>
 							<li class="item item-checkbox checkbox-circle">
@@ -57,25 +58,41 @@
 								<label class="checkbox">
 									<input type="checkbox" >
 								</label>
-								<h2>Nombre Documento</h2>
+								<h2>Nombre Documento</h2> 
 								<p>valor: $23.000.000</p>
 							</li>
 							<li class="item item-checkbox checkbox-circle">
 								<label class="checkbox">
-									<input type="checkbox" >
+									<input type="checkbox" ng-model="checked" >
 								</label>
 								<h2>Nombre Documento</h2>
 								<p>valor: $23.000.000</p>
 							</li>
-
-						
 						</ul>
 					</div>
-					
-					
-					
-				<button class="button button-block button-naranja-df">Solicitar Financiamiento</button>
+						<!--
+						<button  class="button button-block button-naranja-df" ng-disabled="!checked">Solicitar Financiamiento</button>
+						-->
+						
+			       </div>
+			       
+						
 
 	</ion-content>
+	<div class="fixed-outside">
+      <div class="row">
+           <button  class="button button-block button-naranja-df" ng-click="modal.show(2)"  >Solicitar Financiamiento</button>
+        </div>
+
+        
+    </div>
+    </div>
+
+
+					<!--ui-sref="solicitud.cfinancia"->
+					
+				
+
+				
 			
 </ion-view>
