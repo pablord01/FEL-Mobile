@@ -1,6 +1,37 @@
 angular.module('starter')
-
 .controller('AppCtrl', function($scope, $state, $ionicPopup, $ionicModal, AuthService) {
+  $ionicModal.fromTemplateUrl('templates/modal.html', {
+      id: '1', // We need to use and ID to identify the modal that is firing the event!
+      scope: $scope,
+      backdropClickToClose: false,
+      animation: 'slide-in-up'
+    }).then(function(modal) {
+      $scope.oModal1 = modal;
+    });
+    $ionicModal.fromTemplateUrl('templates/modal2_confirmacion.html', {
+      id: '2', // We need to use and ID to identify the modal that is firing the event!
+      scope: $scope
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
+
+  
+  $scope.openModal = function(index) {
+      if (index == 1) $scope.oModal1.show();
+      else $scope.oModal2.show();
+    };
+
+    $scope.closeModal = function(index) {
+      if (index == 1) $scope.oModal1.hide();
+      else $scope.oModal2.hide();
+    };
+    $scope.$on('$destroy', function() {
+      console.log('Destroying modals...');
+      $scope.oModal1.remove();
+      $scope.oModal2.remove();
+    });
+
   $scope.showAlert = function() {
    var alertPopup = $ionicPopup.alert({
      title: 'Solicitud exitosa!',
@@ -21,7 +52,7 @@ angular.module('starter')
         template: 'Iniciando sesión'
       });
     AuthService.login(data.username, data.password).then(function(authenticated) {
-      $state.go('tabs.home', {}, {reload: true});
+      $state.go('tabs', {}, {reload: true});
     }, function(err) {
       var alertPopup = $ionicPopup.alert({
         title: '¡Error!',
@@ -59,68 +90,67 @@ angular.module('starter')
   });
 })
 
-.controller('solicitudCtrl',function(getData,AuthService, $ionicModal, $scope, $ionicLoading){
+.controller('solicitudCtrl',function(getData,AuthService, $ionicModal, $ionicPopup, $scope, $ionicLoading){
   var solicitudes = '';
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
-      id: '1', // We need to use and ID to identify the modal that is firing the event!
-      scope: $scope,
-      backdropClickToClose: false,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.oModal1 = modal;
-    });
-   $ionicModal.fromTemplateUrl('templates/modal2_confirmacion.html', {
-      id: '2', // We need to use and ID to identify the modal that is firing the event!
-      scope: $scope
-    }).then(function(modal) {
-    $scope.modal = modal;
-    });
-  
-    openModal = function(index) {
-      if (index == 1) $scope.oModal1.show();
-      else $scope.oModal2.show();
-    };
+  $ionicModal.fromTemplateUrl('templates/modal.html',function($ionicModal) {
+    $scope.modal = $ionicModal;
+  }, {
+    // Use our scope for the scope of the modal to keep it simple
+    scope: $scope,
+    // The animation we want to use for the modal entrance
+    animation: 'slide-in-up'
+  });
 
-    closeModal = function(index) {
-      if (index == 1) $scope.oModal1.hide();
-      else $scope.oModal2.hide();
-    };
-    $scope.$on('$destroy', function() {
-      console.log('Destroying modals...');
-      $scope.oModal1.remove();
-      $scope.oModal2.remove();
-    });
-
-  getData.getDocuments(AuthService.token(),function(response){
-    solicitudes = response;
+  $scope.openModal = function(nombre, monto, folio,emision,expira,erp,receiver,issuing) {
     var Format = wNumb({
-         prefix: '$',
-        decimals: 0,
-        thousand: '.'
-      });
-      var botoncito = '';
-      var i = 0;
-      var aux = undefined;
-      while(response[i]){
-        aux = response[i];
-        botoncito += '<li class="item item-checkbox checkbox-circle">';
-        botoncito += '\t<label class="checkbox">';
-        botoncito += '\t\t<input name = "'+i+'" type="checkbox">';
-        botoncito += '\t</label>';
-        botoncito += '\t<h3><a ng-click="openModal(1)">'+aux["socialReasonReceiver"]+'</a></h3>';
-        botoncito += '\t<p>Monto: '+Format.to(aux["ammount"])+'</p>';
-        botoncito += '\t<p>Folio: '+aux["folio"]+'</p>';
-        botoncito += '</li>';
-        i = i+1;
-      }
-      document.getElementById('solicitudes').innerHTML += botoncito ;
+      prefix: '$',
+      decimals: 0,
+      thousand: '.'
     });
+    $scope.selectedNombre = nombre;
+    $scope.selectedMonto = Format.to(monto);
+    $scope.selectedFolio = folio;
+    $scope.selectedEmision = emision;
+    $scope.selectedExpira= expira;
+    $scope.selectedErp= erp;
+    $scope.selectedReceiver= receiver;
+    $scope.selectedIssuing= issuing;
+    $scope.modal.show();
+  }
+  $scope.closeModal = function(id) {
+    $scope.selectedId = id;
+    $scope.modal.hide();
+  }
+  getData.getDocuments(AuthService.token(),function(response){
+    var Format = wNumb({
+      prefix: '$',
+      decimals: 0,
+      thousand: '.'
+    });
+    var botoncito = '';
+    var i = 0;
+    var aux = '';
+    $scope.documentos  = response;
+  });
   $scope.solicitar= function(){
     var selected = [];
-    $('#solicitudes input:checked').each(function() {
+    $('#facturas input:checked').each(function() {
       selected.push($(this).attr('name'));
     });
-    console.log(selected);
+    if(selected.length!= 0){
+      getData.sendRequest(AuthService.token(),selected,function(response){
+      var alertPopup = $ionicPopup.alert({
+        title: 'Confirmación',
+        template: 'Solicitud de financiamiento enviada con éxito. Número de solicitud: '+response["idRequest"]
+      });
+      })
+    }
+    else{
+      var alertPopup = $ionicPopup.alert({
+        title: '¡Error!',
+        template: 'Selecciona al menos un documento'
+      });
+    }
   }
 })
 

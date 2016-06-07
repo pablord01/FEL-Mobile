@@ -3,16 +3,29 @@
     <div class="ion-modal-content-custom" >
       <ion-header-bar class="bar-header bar-df">
           <h1 class="title"><font color="white">Detalle Documento</font></h1>
-          <a class="button button-icon icon ion-close" ng-click="closeModal(1)"></a>
+          <a class="button button-icon icon ion-close" ng-click="closeModal(customer.name)"></a>
           
         </ion-header-bar>
 
       <ion-content class="padding" scroll = "false">
       	
-        <h1>Información Documento</h1>
-        <div >
-        	<a class="button button-icon icon ion-ios-download-outline" ></a>
+         <h1>Información Documento</h1>
+        <div class="modal">
+          <h4>Razón Social: {{ selectedNombre }}</h4>
+          <h5>Monto: {{ selectedMonto }}</h5>
+          <h5>Folio: {{ selectedFolio }}</h5>
+          <h5>Fecha Emisión: {{ selectedEmision }}</h5>
+          <h5>Fecha Expiración: {{ selectedExpira}}</h5>
+          <h5>Tipo Erp: {{ selectedErp }}</h5>
+          <h5>Rut Receptor: {{ selectedReceiver}}</h5>
+          <h5>Rut Emisor {{ selectedIssuing }}</h5>
+          
+        <div>
+
         </div>
+        <div >
+          <a class="button button-icon icon ion-ios-download-outline" ></a>
+        </div>   
       </ion-content>
     </div>
   </ion-modal-view>

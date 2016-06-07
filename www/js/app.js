@@ -26,6 +26,7 @@ angular.module('starter', ['ionic'])
     templateUrl: 'templates/tabs.html',
     controller: 'Tabs'
   })
+  
   .state('tabs.home', {
       url: "/home",
       views: {

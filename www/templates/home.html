@@ -16,7 +16,7 @@
           <!-- Semanticamente incorrecto pero funciona para poner un href a un div -->
           <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/solicitud';" >
             <div class="col-notifica financia">
-              <h3 class="numero">$265.200.000.-</h3>
+              <h3 class="numero">{{available}}</h3>
               <p class="notifica-titulo"><font color="orange"><b>></b></font> Disponible a Financiar</p>
             </div>
           </div>
@@ -26,13 +26,13 @@
           <!-- Semanticamente incorrecto pero funciona para poner un href a un div -->
           <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/ofertas';" >
             <div class="col-notifica ofertas">
-              <h3 class="numero">15</h3>
+              <h3 class="numero">{{offers}}</h3>
               <p class="notifica-titulo"><font color="orange"><b>></b></font> Ofertas</p>
             </div>
           </div>
           <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/pendientes';">
             <div class="col-notifica  pendientes">
-              <h3 class="numero">20</h3>
+              <h3 class="numero">{{offerspending}}</h3>
               <p class="notifica-titulo"><font color="orange"><b>></b></font> Pendientes</p>
             </div>
           </div>

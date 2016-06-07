@@ -123,6 +123,31 @@ felServices.factory('getData', function($q) {
       }).error(function(err){
         callback(0);
       });
+    },
+    sendRequest: function(token,id,callback){
+      var url = '';
+      var i = 0;
+      while(id[i]){
+        url = '&documents='+id[i];
+        i = i+1;
+      }
+     var settings = {
+        "async": true,
+        "crossDomain": true,
+        "url": "http://54.200.26.254/api2/FinancialRequest/Create?idExternalEnterprise=ENT2"+url,
+        "method": "GET",
+        "headers": {
+          "access-control-allow-origin": "*",
+          "accept": "application/json",
+          "content-type": "application/json",
+          "authorization": token
+        }
+      };
+      $.ajax(settings).done(function (response) {
+        callback(response);
+      }).error(function(err){
+        callback(0);
+      }); 
     }
   }
 });
