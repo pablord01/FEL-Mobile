@@ -10,6 +10,7 @@ Este manual fue pensado para ser realizado paso a paso bajo el sistema operativo
 
 
 ** Instalación de dependencias**
+
 * Ingresar a la página oficial de NodeJS y descargar la versión acorde a la arquitectura.
 https://nodejs.org/en/download/
 
