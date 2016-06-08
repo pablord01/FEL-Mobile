@@ -2,10 +2,15 @@ Este manual fue pensado para ser realizado paso a paso bajo el sistema operativo
 
 
 **Dependencias necesarias**
+
 * NodeJS
+
 * Android SDK
+
 * Java JDK (1.8 8u91)
+
 * Cordova 
+
 * Ionic
 
 
