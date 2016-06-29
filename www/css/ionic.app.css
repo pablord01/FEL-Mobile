@@ -10010,7 +10010,7 @@ a.button {
     color: #fff;
     font-size: 18px; }
   .dis-financiar-small h3 {
-    background: #facb46;
+    background: #579c1b;
     font-weight: 600;
     margin-bottom: 0;
     color: #fff;
@@ -10267,5 +10267,92 @@ float: center;
 border: 1px solid;
 background: #fcdf90;
 }
+.button.button-naranja-df1 {
+    border-color: #DA6907;
+    background-color: #B07146;
+    color: #fff; }
+    button.button-naranja-df1:hover {
+      color: #fff;
+      text-decoration: none; }
+    .button.button-naranja-df1.active, .button.button-naranja-df1.activated {
+      border-color: #a2a2a2;
+      background-color: #f26404; }
+    .button.button-naranja-df1.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #f26404; }
+    .button.button-naranja-df1.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-naranja-df1.button-outline {
+      border-color: #f26404;
+      background: transparent;
+      color: #f26404; }
+      .button.button-naranja-df1.button-outline.active, .button.button-naranja-df1.button-outline.activated {
+        background-color: #f26404;
+        box-shadow: none;
+        color: #fff; }
+
+
+    .button.button-naranja-df2 {
+    border-color: #34660b;
+    background-color: #519e11;
+    color: #fff;
+     }
+     button.button-naranja-df2:hover {
+      color: #fff;
+      text-decoration: none; }
+    .button.button-naranja-df2.active, .button.button-naranja-df2.activated {
+      border-color: #a2a2a2;
+      background-color: #15c003; }
+    .button.button-naranja-df2.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #f26404; }
+    .button.button-naranja-df2.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-naranja-df2.button-outline {
+      border-color: #f26404;
+      background: transparent;
+      color: #f26404; }
+      .button.button-naranja-df2.button-outline.active, .button.button-naranja-df2.button-outline.activated {
+        background-color: #f26404;
+        box-shadow: none;
+        color: #fff; }
+
+
+
+
+    .button.button-naranja-df3 {
+    border-color: #34660b;
+    background-color: #cc1f16;
+    color: #fff;
+     }
+     button.button-naranja-df3:hover {
+      color: #fff;
+      text-decoration: none; }
+    .button.button-naranja-df3.active, .button.button-naranja-df3.activated {
+      border-color: #a2a2a2;
+      background-color: #e32218; }
+    .button.button-naranja-df3.button-clear {
+      border-color: transparent;
+      background: none;
+      box-shadow: none;
+      color: #f26404; }
+    .button.button-naranja-df3.button-icon {
+      border-color: transparent;
+      background: none; }
+    .button.button-naranja-df3.button-outline {
+      border-color: #f26404;
+      background: transparent;
+      color: #f26404; }
+      .button.button-naranja-df3.button-outline.active, .button.button-naranja-df3.button-outline.activated {
+        background-color: #f26404;
+        box-shadow: none;
+        color: #fff; }
+
 
  

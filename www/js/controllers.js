@@ -70,6 +70,8 @@ angular.module('starter')
 .controller('solicitudCtrl',function(saveAmmount, getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){
   $scope.Ammount = saveAmmount.getAmmount();
   $scope.checkItems = { };
+  $scope.index = '';
+  $scope.selected = [];
   $scope.pesos = function(monto){
     var Format = wNumb({
       prefix: '$',
@@ -121,6 +123,10 @@ angular.module('starter')
     $scope.selectedId = id;
     $scope.modal.hide();
   }
+  $scope.$on('solicitar:updated', function(event,response) {
+    $scope.index  = response;
+    $state.go($state.current, {}, {reload: true});
+  });
   $scope.$on('request:updated', function(event,response) {
     $scope.documentos  = response;
     $state.go($state.current, {}, {reload: true});
@@ -133,22 +139,28 @@ angular.module('starter')
     $('#facturas input:checked').each(function() {
       selected.push($(this).attr('name'));
     });
-    if(selected.length!= 0){
-      getData.sendRequest(AuthService.token(),selected,function(response){
-        $('input:checkbox').removeAttr('checked');
-        var alertPopup = $ionicPopup.alert({
-          title: 'Confirmación',
-          template: 'Solicitud de financiamiento enviada con éxito. Número de solicitud: '+response["idRequest"]
-        }); 
-      });
-    }
+    $scope.selected = selected;
+    if($scope.selected.length!= 0){
+      $rootScope.$broadcast('solicitar:updated',$scope.selected);
+      $state.go('tabs.solicitar', {}, {reload: true});    
+    }   
     else{
       var alertPopup = $ionicPopup.alert({
         title: '¡Error!',
         template: 'Selecciona al menos un documento'
       });
     }
-  }
+  };
+    $scope.solicitardefinitivo = function(){ 
+      console.log($scope.index);
+      getData.sendRequest(AuthService.token(),$scope.index,function(response){
+        var alertPopup = $ionicPopup.alert({
+          title: 'Confirmación',
+          template: 'Solicitud de financiamiento enviada con éxito. Número de solicitud: '+response["idRequest"]
+        });
+        $state.go('tabs.solicitud', {}, {reload: true});
+      })
+    }
 })
 
 .controller('ofertasCtrl',function(passingData, getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){

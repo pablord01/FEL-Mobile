@@ -73,7 +73,27 @@ angular.module('starter', ['ionic'])
           controller: 'showOffers'
         }
       }
+    })
+    .state('tabs.solicitar', {
+      url: "/solicitar",
+            
+      views: {
+        'solicitud-tab': {          
+          templateUrl: "templates/confirmacionsolicitud.html",
+          controller: 'solicitudCtrl'
+          }
+      }
+    })
+      .state('tabs.detalleoferta', {
+      url: "/detalleoferta",            
+      views: {
+        'ofertas-tab': {          
+          templateUrl: "templates/detalleoferta.html"
+          }
+      }
     });
+
+  
 
 
   

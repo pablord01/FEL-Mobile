@@ -1,0 +1,30 @@
+
+
+     	 <div class="bar bar-subheader1 item-input-inset dis-financiar-small" >
+   			<div >
+				<h3>Confirmación</h3>			
+			</div>
+   		</div>
+   	
+    <ion-content padding="true" class="has-header2" ng-controller="solicitudCtrl">
+    <div class = "row2">
+    	<h4><center>¿Deseas confirmar la solicitud de financiamiento de los siguientes documentos?</center></h4>
+    </div>
+    <h4 id = "docs" ng-repeat="doc in index | filter:search ">
+      Documento #{{doc}} 
+    </h4>
+   				
+              
+    </ion-content>     
+  
+    <div class = "row fixed-outside">
+		   <div class = "col col-50">
+		   		<a class="button button-naranja-df1 icon icon-left ion-chevron-left" href="#/tab/solicitud">Volver</a> 
+		   		
+		   </div>
+		   <div class = "col col-50" ng-controller="solicitudCtrl">
+		   		<a class="button button-naranja-df2 icon icon-right ion-checkmark" 
+          ng-click = "solicitardefinitivo()">Confirmar</a> 
+		   </div>
+		</div> 
+

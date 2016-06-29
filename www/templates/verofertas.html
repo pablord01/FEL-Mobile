@@ -1,13 +1,13 @@
 
 <div class="bar bar-subheader1 item-input-inset dis-financiarofertas-small" >
    		<div >
-			<h2>OFERTAS</h2>
+			<h2>Ofertas</h2>
 		</div>
    </div>
 <ion-content padding="true" class="has-header2 has-footerofertas" >
 	<div id = "verofertas" ng-repeat="oferta in recibido | filter:search ">	
     <div class="row  notifica-home">
-      <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/solicitud';" >
+      <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/detalleoferta';" >
         <div class="col-notifica ofertas">
           <h3 class="oferta"><font color="black"><b>Factoring: {{oferta.factoringName}}</b></font></h3>
           <h3 class="ofertasinborde">Valor: $545.544.-</h3>
@@ -23,6 +23,7 @@
   </div>
         
 </ion-content>    
-<div class="fixed-outside">
-      <a class="button icon icon-left ion-chevron-left" ng-click="retornar()">Volver</a>    
+<div class="fixed-outside col">
+      <a class="button icon icon-left ion-chevron-left" ng-click="retornar()">Volver</a>
+
 </div>
