@@ -5,18 +5,20 @@
         </ion-header-bar>
         <ion-content class="padding">
           <h3>¿Deseas solicitar el financiamiento de los siguientes documentos?</h3>
-          <h3><a ng-click="openModal(1)">#9328 LaTam</a> </h3>
+          <h3><a ng-click="openModal()">#828212 ABAST, CENTRO LAM.</a> </h3>
           <div><h3>Por un monto Total: </h3>
+          </div>
+          <div><h2 > $12.000.456.- </h2>
           </div>
           <div class="confirmaSolicitud">
           <!-- Semanticamente incorrecto pero funciona para poner un href a un div -->
           
-            <button class="button button-balanced" ui-sref="tabs.home" ng-click="showAlert(); modal.hide(2)">
+            <button class="button button-balanced" ui-sref="tabs.home" ng-click="showAlert(); cierra(2)">
               <b> Aceptar</b>              
             </button>
           
           
-            <button class="button button-assertive" style="margin-left:30px" ng-click="modal.hide(2)">
+            <button class="button button-assertive" style="margin-left:30px" ng-click="cierra(2)">
               <b>Cancelar</b>   
             </button>
             

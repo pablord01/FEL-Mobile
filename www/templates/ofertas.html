@@ -1,6 +1,44 @@
-     
-     <ion-view title="Ofertas">
-        <ion-content >
-        <h1>ofertas</h1>
-        </ion-content>     
-      </ion-view>
+<ion-view title="Ofertas">
+
+     	 <div class="bar bar-subheader1 item-input-inset dis-financiarofertas-small" >
+   			<div >
+				<h3>Ofertas por Solicitud</h3>			
+			</div>
+   		</div>
+   		<div class="bar bar-subheader2 item-input-inset" >
+			<i class="icon ion-search placeholder-icon"></i>
+			<input type="text" placeholder=" Buscar Solicitud" class="full-width" />	
+   		</div>
+    <ion-content padding="true" class="has-header3">
+    <div id = "ofertas" ng-repeat="offer in offers | filter:search ">
+   		<div class = "row2">
+		   <div class = "col col-67">
+		   		<font color="red" size="4"><b>Solicitud </b><a href="">#78394</a></font>
+				<br/><font size="3">Razón Social: {{offer.creationUser}}
+				<br/> Fecha
+				<br/> <b>Monto: $54.543.909.-</b>
+				</font>
+		   		
+		   </div>
+		   <div name={{offer.id}} class = "col col-33"><font color="red" size="4"><b>Oferta(s)</b></font>
+		   		<a id ="bo"class="button icon icon-right ion-chevron-right" ng-click="verOfertas($index)"><font size="5">{{offer.offers.length}}</font></a>
+		   </div>
+		</div>
+	</div>
+	<div id = "ofertas2" ng-repeat="offer in offerspending | filter:search ">
+   		<div class = "row2">
+		   <div class = "col col-67">
+		   		<font color="red" size="4"><b>Solicitud </b><a href="">#78394</a></font>
+				<br/><font size="3">Razón Social: {{offer.creationUser}}
+				<br/> Fecha
+				<br/> <b>Monto: $54.543.909.-</b>
+				</font>
+		   		
+		   </div>
+		   <div name={{offer.id}} class = "col col-33"><font color="red" size="4"><b>Oferta(s)</b></font>
+		   		<a id ="bo"class="button icon icon-right ion-chevron-right" ng-disabled><font size="5">0</font></a>
+		   </div>
+		</div>
+	</div>
+    </ion-content>     
+</ion-view>

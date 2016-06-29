@@ -1,32 +1,55 @@
 
 <ion-view title="solicitud">
-	<ion-content padding="true" scroll = "false">
+	<!--<ion-content padding="true" scroll = "false">
 		<div class="dis-financiar-small">
-			<h2>$234.567.890</h2>
+			<h2>$ 265.200.000</h2>
 			<p>Disponible a financiar</p>
 		</div>					
 		<div class="list list-inset" >
 
 			<label class="item item-input">
 				<i class="icon ion-search placeholder-icon"></i>
-				<input type="text" placeholder="Buscar Documento">
+				<input type="text" placeholder=" Search" ng-model="search.socialReasonReceiver" />
 			</label>
 		</div>	
 	</ion-content>
+-->
+
 	
+   <div class="bar bar-subheader1 item-input-inset " >
+   		
+		<div class = "row2">
+		  	 <div class = "col col-50 dis-financiar-small">
+		   		<h2>{{Ammount}}</h2>
+				<p>Disponible a financiar</p>		   		
+		   	</div>
+		   	<div class = "col col-50 dis-financiar-small3">
+		   		<h2>$ 0</h2>
+				<p>Monto seleccionado</p>	
+			</div>
+   		</div>
+   	 </div>	
+   <div class="bar bar-subheader2 item-input-inset" >
+		<i class="icon ion-search placeholder-icon"></i>
+		<input type="text" placeholder=" Buscar documento por Nombre o Folio" ng-model="search.socialReasonReceiver "  class="full-width" />	
+   </div>
 
 	<ion-content padding="true" class="has-header has-subheader padding morePadding has-footer  hass-footer" >	
 
-					<div id = "facturas" class="list card" ng-repeat="documento in documentos">
+
+
+
+					<div id = "facturas" class="list card" ng-repeat="documento in documentos | filter:search ">
 						<ul class="list">
-							<li class="item item-checkbox checkbox-circle">
+							<li name = 'list'+{{documento.idDocument}} class="item item-checkbox checkbox-circle" >
 								<div class="checkbox">
-									<input name = {{documento.idDocument}} type="checkbox">
+									<input name = {{documento.idDocument}} type="checkbox" ng-model="checked">
 								</div>
-								<h2><a ng-click="openModal(documento.socialReasonReceiver,documento.ammount,documento.folio,documento.emissionDate,documento.expirationDate,documento.erpType,documento.receiverRUT,documento.rutIssuing)">{{ documento.socialReasonReceiver}}</a></h2>
-								<p>Monto: {{ documento.ammount}}</p>
-								<p>Folio: {{ documento.folio}}</p>
+								<h2><a ng-click="openModal(documento.socialReasonReceiver,documento.ammount,documento.folio,documento.emissionDate,documento.expirationDate,documento.erpType,documento.receiverRUT,documento.rutIssuing)">{{ documento.socialReasonReceiver}}</a></h2>								
+								<p>FOLIO: {{ documento.folio}}</p>
+								<p><font color="black"><b>MONTO: {{pesos(documento.ammount)}}</b></font></p>
 							</li>
+							
 						</ul>
 					</div>
 						<!--

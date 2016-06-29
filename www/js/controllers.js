@@ -1,37 +1,6 @@
 angular.module('starter')
-.controller('AppCtrl', function($scope, $state, $ionicPopup, $ionicModal, AuthService) {
-  $ionicModal.fromTemplateUrl('templates/modal.html', {
-      id: '1', // We need to use and ID to identify the modal that is firing the event!
-      scope: $scope,
-      backdropClickToClose: false,
-      animation: 'slide-in-up'
-    }).then(function(modal) {
-      $scope.oModal1 = modal;
-    });
-    $ionicModal.fromTemplateUrl('templates/modal2_confirmacion.html', {
-      id: '2', // We need to use and ID to identify the modal that is firing the event!
-      scope: $scope
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
 
-
-  
-  $scope.openModal = function(index) {
-      if (index == 1) $scope.oModal1.show();
-      else $scope.oModal2.show();
-    };
-
-    $scope.closeModal = function(index) {
-      if (index == 1) $scope.oModal1.hide();
-      else $scope.oModal2.hide();
-    };
-    $scope.$on('$destroy', function() {
-      console.log('Destroying modals...');
-      $scope.oModal1.remove();
-      $scope.oModal2.remove();
-    });
-
+.controller('AppCtrl', function(getData, AuthService,  $scope, $state, $ionicPopup, $ionicModal, AuthService) {
   $scope.showAlert = function() {
    var alertPopup = $ionicPopup.alert({
      title: 'Solicitud exitosa!',
@@ -44,39 +13,42 @@ angular.module('starter')
  }
 })
 //controlador del login
-.controller('LoginCtrl', function($scope, $state, $ionicPopup, $ionicLoading, AuthService) {
+.controller('LoginCtrl', function(getData, $scope, $state, $ionicPopup, $ionicLoading, AuthService) {
   $scope.data = {};
  
   $scope.login = function(data) {
     $ionicLoading.show({
         template: 'Iniciando sesión'
       });
-    AuthService.login(data.username, data.password).then(function(authenticated) {
+    AuthService.login(data.username, data.password, function(token) {
       $state.go('tabs', {}, {reload: true});
-    }, function(err) {
-      var alertPopup = $ionicPopup.alert({
-        title: '¡Error!',
-        template: 'Por favor verifica tu información'
-      });
     });
   };
 })
 
 
-.controller('Tabs', function($scope, $state, $http, $ionicPopup, AuthService) {
-
+.controller('Tabs', function(getData, AuthService, $scope, $state, $http, $ionicPopup, AuthService) {
+  getData.getClaims(AuthService.token(),function(response){
+    $scope.signer = function(){
+      if (response[1].value == "signer-user") {
+        return "ng-show";
+      }
+      else{
+        return "ng-hide";
+      }
+    };
+  });
   $scope.logout = function() {
     AuthService.logout();
     $state.go('login');
   };
 })
 
-.controller('HomeTabCtrl', function($scope, $state, $http, $q, $ionicLoading, $sce, $ionicPopup, AuthService, getData) {
+.controller('HomeTabCtrl', function(saveAmmount, $scope, $state, $rootScope, $http, $q, $ionicLoading, $sce, $ionicPopup, AuthService, getData) {
   $scope.available = "$0";
   $scope.offers = 0;
   $scope.offerspending = 0;
-
-  getData.getDash(AuthService.token(),function(response){
+  $scope.$on('dash:updated', function(event,response) {
     if(response!= 0){ 
       var Format = wNumb({
          prefix: '$',
@@ -86,18 +58,46 @@ angular.module('starter')
       $scope.available = Format.to(response["ammountAvailable"]);
       $scope.offers = response["offersAvailable"];
       $scope.offerspending = response["offersPendingSignature"];
-    }
+      saveAmmount.setAmmount($scope.available);
+      }
+    });
+
+  getData.getDash(AuthService.token(),function(response){
+    $rootScope.$broadcast('dash:updated',response);
   });
 })
 
-.controller('solicitudCtrl',function(getData,AuthService, $ionicModal, $ionicPopup, $scope, $ionicLoading){
+.controller('solicitudCtrl',function(saveAmmount, getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){
+  $scope.Ammount = saveAmmount.getAmmount();
+  $scope.checkItems = { };
+  $scope.pesos = function(monto){
+    var Format = wNumb({
+      prefix: '$',
+      decimals: 0,
+      thousand: '.'
+    });
+    return Format.to(monto);
+  };
+
+  $scope.print = function() {
+    console.log($scope.checkItems);
+  }
+
+  $scope.save = function() {
+    var array = [];
+    for(i in $scope.checkItems) {
+        console.log($scope.checkItems[i]);
+        if($scope.checkItems[i] == true) {
+            array.push(i);
+        }
+    }
+    console.log(array);
+  }
   var solicitudes = '';
   $ionicModal.fromTemplateUrl('templates/modal.html',function($ionicModal) {
     $scope.modal = $ionicModal;
   }, {
-    // Use our scope for the scope of the modal to keep it simple
     scope: $scope,
-    // The animation we want to use for the modal entrance
     animation: 'slide-in-up'
   });
 
@@ -121,16 +121,12 @@ angular.module('starter')
     $scope.selectedId = id;
     $scope.modal.hide();
   }
-  getData.getDocuments(AuthService.token(),function(response){
-    var Format = wNumb({
-      prefix: '$',
-      decimals: 0,
-      thousand: '.'
-    });
-    var botoncito = '';
-    var i = 0;
-    var aux = '';
+  $scope.$on('request:updated', function(event,response) {
     $scope.documentos  = response;
+    $state.go($state.current, {}, {reload: true});
+  });
+  getData.getDocuments(AuthService.token(),function(response){
+    $rootScope.$broadcast('request:updated',response);
   });
   $scope.solicitar= function(){
     var selected = [];
@@ -139,11 +135,12 @@ angular.module('starter')
     });
     if(selected.length!= 0){
       getData.sendRequest(AuthService.token(),selected,function(response){
-      var alertPopup = $ionicPopup.alert({
-        title: 'Confirmación',
-        template: 'Solicitud de financiamiento enviada con éxito. Número de solicitud: '+response["idRequest"]
+        $('input:checkbox').removeAttr('checked');
+        var alertPopup = $ionicPopup.alert({
+          title: 'Confirmación',
+          template: 'Solicitud de financiamiento enviada con éxito. Número de solicitud: '+response["idRequest"]
+        }); 
       });
-      })
     }
     else{
       var alertPopup = $ionicPopup.alert({
@@ -154,14 +151,49 @@ angular.module('starter')
   }
 })
 
-/* esto sirve para el pdf, hay que afinarlo
-    $.ajax(settings).done(function (response) {
-        var file = new Blob([response], {type: 'application/pdf'});
-        var fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
-    }).error(function(err){
-      var alertPopup = $ionicPopup.alert({
-          title: '¡Error!',
-          template: 'Verifica tu conexión a internet'
-        });
-    });*/
+.controller('ofertasCtrl',function(passingData, getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){
+  $scope.offers = '';
+  $scope.offerspending = '';
+  $scope.$on('offers:updated', function(event,response,response2) {
+    $scope.offers  = response;
+    $scope.offerspending = response2;
+    $state.go($state.current, {}, {reload: true});
+  });
+  // este trae las que tienen ofertas
+  getData.getOffers(AuthService.token(),function(response){
+    // este trae las que no tienen ofertas
+    getData.getOffersPending(AuthService.token(),function(response2){
+      $rootScope.$broadcast('offers:updated',response,response2);
+    });
+  });
+  
+  $scope.verOfertas = function(index){
+    $rootScope.$broadcast('showoff:updated',$scope.offers[index].offers);
+    passingData.setData($scope.offers[index].offers);
+    $state.go('tabs.revisar', {}, {reload: true});
+  }
+})
+
+.controller('pendientesCtrl',function(getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){
+  $scope.pendings = '';
+  $scope.$on('pending:updated', function(event,response) {
+    $scope.pendings  = response;
+    $state.go($state.current, {}, {reload: true});
+  });
+  getData.getPendingSignature(AuthService.token(),function(response){
+    $rootScope.$broadcast('pending:updated',response);
+  });
+})
+
+.controller('showOffers',function($ionicHistory,  passingData, getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){
+  $scope.$on('showoff:updated', function(event,response) {
+    $scope.recibido  = response;
+    $state.go($state.current, {}, {reload: true});
+  });
+  $rootScope.$broadcast('showoff:updated',passingData.getData());
+
+  $scope.retornar = function(){
+    passingData.setData({});
+    $state.go('tabs.ofertas', {}, {reload: true});
+  }
+})

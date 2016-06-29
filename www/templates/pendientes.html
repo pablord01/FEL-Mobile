@@ -1,5 +1,28 @@
-      <ion-view title="Pendientes">
-        <ion-content>
-          <h1>Pendiente de firmas AQUI</h1>
-        </ion-content>
-      </ion-view>
+<ion-view title="Ofertas">
+
+     	 <div class="bar bar-subheader1 item-input-inset dis-financiarofertas-small" >
+   			<div >
+				<h3>Pendientes por Firmar</h3>			
+			</div>
+   		</div>
+   		<div class="bar bar-subheader2 item-input-inset" >
+			<i class="icon ion-search placeholder-icon"></i>
+			<input type="text" placeholder=" Buscar Solicitud" class="full-width" />	
+   		</div>
+    <ion-content padding="true" class="has-header3">
+    <div id = "ofertas" ng-repeat="pending in pendings | filter:search ">
+   		<div class = "row2">
+		   <div class = "col col-67">
+		   		<font color="red" size="4"><b>Oferta </b><a href="">#{{pending.id}}</a></font>
+				<br/><font size="3">Razón Social: {{pending.creationUser}}
+				<br/> Fecha
+				<br/> <b>Monto: $54.543.909.-</b>
+				</font>
+		   		
+		   </div>
+		</div>
+	</div>
+		
+              
+    </ion-content>     
+</ion-view>

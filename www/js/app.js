@@ -40,7 +40,8 @@ angular.module('starter', ['ionic'])
       url: "/ofertas",
       views: {
         'ofertas-tab': {
-          templateUrl: "templates/ofertas.html"
+          templateUrl: "templates/ofertas.html",
+          controller: 'ofertasCtrl'
         }
       }
     })
@@ -58,10 +59,20 @@ angular.module('starter', ['ionic'])
       url: "/pendientes",
       views: {
         'pendientes-tab': {
-          templateUrl: "templates/pendientes.html"
+          templateUrl: "templates/pendientes.html",
+          controller: 'pendientesCtrl'
         }
       }
 
+    }) 
+    .state('tabs.revisar', {
+      url: "/revisar",
+      views: {
+        'ofertas-tab': {          
+          templateUrl: "templates/verofertas.html",
+          controller: 'showOffers'
+        }
+      }
     });
 
 
