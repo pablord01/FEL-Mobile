@@ -5,9 +5,9 @@
 		</div>
    </div>
 <ion-content padding="true" class="has-header2 has-footerofertas" >
-	<div id = "verofertas" ng-repeat="oferta in recibido | filter:search ">	
+	<div id = "verofertas" ng-repeat="oferta in recibido">	
     <div class="row  notifica-home">
-      <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/detalleoferta';" >
+      <div class="col" style="cursor: pointer;" ng-click="detalle($index)" >
         <div class="col-notifica ofertas">
           <h3 class="oferta"><font color="black"><b>Factoring: {{oferta.factoringName}}</b></font></h3>
           <h3 class="ofertasinborde">Valor: $545.544.-</h3>

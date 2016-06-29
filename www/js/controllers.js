@@ -151,8 +151,11 @@ angular.module('starter')
       });
     }
   };
+  $scope.mostrarmodal = function(index){
+    var doc = $scope.documentos[index];
+    $scope.openModal(doc.socialReasonReceiver,doc.ammount,doc.folio,doc.emissionDate,doc.expirationDate,doc.erpType,doc.receiverRUT,doc.rutIssuing)
+  };
     $scope.solicitardefinitivo = function(){ 
-      console.log($scope.index);
       getData.sendRequest(AuthService.token(),$scope.index,function(response){
         var alertPopup = $ionicPopup.alert({
           title: 'Confirmación',
@@ -198,12 +201,34 @@ angular.module('starter')
 })
 
 .controller('showOffers',function($ionicHistory,  passingData, getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){
+  $scope.detalle = function(index){
+    $scope.oferta = $scope.recibido[index];
+    $rootScope.$broadcast('detalle:updated',index);
+    $state.go('tabs.detalleoferta');
+  };
   $scope.$on('showoff:updated', function(event,response) {
     $scope.recibido  = response;
     $state.go($state.current, {}, {reload: true});
   });
+  $scope.$on('detalle:updated', function(event,index) {
+    $scope.oferta = $scope.recibido[index];
+    $state.go($state.current);
+  });
   $rootScope.$broadcast('showoff:updated',passingData.getData());
-
+  $scope.aceptar = function(){
+    var alertPopup = $ionicPopup.alert({
+      title: 'Confirmación',
+      template: 'Oferta aceptada! Ahora quedará pendiente de firma'
+    });
+    $state.go('tabs.ofertas', {}, {reload: true});
+  };
+  $scope.rechazar = function(){
+    var alertPopup = $ionicPopup.alert({
+      title: 'Confirmación',
+      template: 'Oferta Rechazada!'
+    });
+    $state.go('tabs.ofertas', {}, {reload: true});
+  }
   $scope.retornar = function(){
     passingData.setData({});
     $state.go('tabs.ofertas', {}, {reload: true});

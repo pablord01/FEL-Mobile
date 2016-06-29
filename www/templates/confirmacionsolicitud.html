@@ -10,10 +10,11 @@
     <div class = "row2">
     	<h4><center>¿Deseas confirmar la solicitud de financiamiento de los siguientes documentos?</center></h4>
     </div>
-    <h4 id = "docs" ng-repeat="doc in index | filter:search ">
-      Documento #{{doc}} 
-    </h4>
-   				
+    <div id = "docs" ng-repeat="doc in index | filter:search ">
+      <h4 ng-click="mostrarmodal($index)">
+        Documento #{{doc}} 
+      </h4>
+   	</div>		
               
     </ion-content>     
   
