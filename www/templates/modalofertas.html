@@ -1,0 +1,37 @@
+<ion-modal-view class="ion-nifty-modal">
+  <div class="ion-modal-content-custom" >
+    <ion-header-bar class="bar-header bar-df">
+      <h1 class="title"><font color="white">Detalle Solicitud</font></h1>
+      <a class="button button-icon icon ion-close" ng-click="closeModal(customer.name)"></a>
+    </ion-header-bar>
+    <ion-content class="padding">
+      <h1>Información Documento</h1>
+      <div >
+        <a class="button button-icon icon ion-ios-download-outline" ></a>
+      </div>
+      <div class="modal">
+        <!--<h4>{{doc}}</h4>-->
+      
+
+        <h3><b>Docs. Solicitud realizada</b></h3>
+         
+        <h5>Razón Social: {{ documento }}</h5>
+        <h5>Folio: {{ folio }}</h5>
+        <h5>Monto: {{ pesos(monto) }}</h5>
+        <h5>Razón Social: {{ documento1 }}</h5>
+        <h5>Folio: {{ folio1 }}</h5>
+        <h5>Monto: {{ pesos(monto1) }}</h5>
+        <h5>Razón Social: {{ documento2 }}</h5>
+        <h5>Folio: {{ folio2 }}</h5>
+        <h5>Monto: {{ pesos(monto2) }}</h5>
+        <h5>--</h5>
+        <h5>Fecha Emisión: {{ fecha(emision) }}</h5>
+        <h5>Rut Emisor: {{ rutemisor }}</h5>
+        
+      </div>  
+      <div>
+        <a class="button button-icon icon ion-ios-download-outline" ></a>
+      </div>
+    </ion-content>
+  </div>
+</ion-modal-view>

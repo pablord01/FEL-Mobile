@@ -6,21 +6,30 @@
 				<p>Disponible a financiar</p>		   		
 		   	</div>
 		   	<div class = "col col-50 dis-financiar-small3">
-		   		<h2>{{pesos(suma)}}</h2>
+		   		<h2>$ 0</h2>
 				<p>Monto seleccionado</p>	
 			</div>
    		</div>
    	</div>	
    	<div class="bar bar-subheader2 item-input-inset" >
 		<i class="icon ion-search placeholder-icon"></i>
-		<input type="text" placeholder=" Buscar documento por Nombre o Folio" ng-model="search.socialReasonReceiver "  class="full-width" />	
+		<input type="text" placeholder=" Buscar Nombre o Folio" ng-model="search.socialReasonReceiver "  class="full-width" />	
+   </div>
+   <div class=" row a">   	
+   		<div class= "checkbox">
+   			<input  type="checkbox" ng-model="master">
+   		</div>
+   	
+   	<p>&nbsp;Marcar </br>&nbsp;Todos</p> 
+
+
    </div>
 	<ion-content padding="true" class="has-header has-subheader padding morePadding has-footer  hass-footer" >
 		<div id = "facturas" class="list card" ng-repeat="documento in documentos | filter:search ">
 			<ul class="list">
 				<li name = 'list'+{{documento.idDocument}} class="item item-checkbox checkbox-circle" >
 					<div class="checkbox">
-						<input name = {{documento.idDocument}} type="checkbox" ng-model="checked">
+						<input id = "grandtotal" name = {{documento.idDocument}}  value ={{documento.ammount}} type="checkbox" ng-checked="master" aria-label="Slave input">
 					</div>
 					<h2><a ng-click="openModal(documento.socialReasonReceiver,documento.ammount,documento.folio,documento.emissionDate,documento.expirationDate,documento.erpType,documento.receiverRUT,documento.rutIssuing)">{{ documento.socialReasonReceiver}}</a></h2>				<p>FOLIO: {{ documento.folio}}</p>
 					<p><font color="black"><b>MONTO: {{pesos(documento.ammount)}}</b></font></p>

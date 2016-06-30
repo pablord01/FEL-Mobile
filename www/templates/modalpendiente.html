@@ -1,0 +1,39 @@
+<ion-modal-view class="ion-nifty-modal">
+  <div class="ion-modal-content-custom" >
+    <ion-header-bar class="bar-header bar-df">
+      <h1 class="title"><font color="white">Detalle Oferta</font></h1>
+      <a class="button button-icon icon ion-close" ng-click="closeModal(customer.name)"></a>
+    </ion-header-bar>
+    <ion-content class="padding">
+      <h1>Información Documento</h1>
+      <div >
+        <a class="button button-icon icon ion-ios-download-outline" ></a>
+      </div>
+      <div class="modal">
+        <!--<h4>{{doc}}</h4>-->
+
+         
+        <h5>ID Pendiente de firma: {{ selectedNombre }}</h5>
+        <h5>Monto: {{ pesos(monto) }}</h5>
+        <h5>Nombre Firmante: {{ nombrefirmante }}</h5>
+        <h5>Correo Firmante: {{ correofirmante }}</h5>
+        <h5>Nombre Factoring: {{ factoring }}</h5>
+        <h5>Expiración oferta: {{fecha(expira)}}</h5>
+
+     
+        
+        <h4>Documento: {{ documento}}</h4>
+        <h5>Id Documento: {{idDoc}}</h5>
+        <h5>Monto: {{pesos(montodoc)}}</h5>
+        <h5>Tipo Erp: {{erp}}</h5>
+        <h5>Fecha Emisión: {{fecha(emision)}}</h5>
+        <h5>Fecha Expiración: {{fecha(fechaexpiracion)}}</h5>
+        <h5>Rut Receptor: {{rutreceptor}}</h5>
+        <h5>Rut Emisor {{rutemisor}}</h5>
+      </div>  
+      <div>
+        <a class="button button-icon icon ion-ios-download-outline" ></a>
+      </div>
+    </ion-content>
+  </div>
+</ion-modal-view>
