@@ -89,7 +89,7 @@ angular.module('starter', ['ionic'])
       views: {
         'ofertas-tab': {          
           templateUrl: "templates/detalleoferta.html",
-          controller: 'showOffers'
+          controller: 'offerDetails'
           }
       }
     });

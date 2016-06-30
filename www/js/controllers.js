@@ -112,8 +112,8 @@ angular.module('starter')
     $scope.selectedNombre = nombre;
     $scope.selectedMonto = Format.to(monto);
     $scope.selectedFolio = folio;
-    $scope.selectedEmision = emision;
-    $scope.selectedExpira= expira;
+    $scope.selectedEmision = new Date(emision).toUTCString();
+    $scope.selectedExpira = new Date(expira).toUTCString();
     $scope.selectedErp= erp;
     $scope.selectedReceiver= receiver;
     $scope.selectedIssuing= issuing;
@@ -153,7 +153,7 @@ angular.module('starter')
   };
   $scope.mostrarmodal = function(index){
     var doc = $scope.documentos[index];
-    $scope.openModal(doc.socialReasonReceiver,doc.ammount,doc.folio,doc.emissionDate,doc.expirationDate,doc.erpType,doc.receiverRUT,doc.rutIssuing)
+    $scope.openModal(doc.socialReasonReceiver,doc.ammount,doc.folio,new Date(doc.emissionDate).toUTCString(),new Date(doc.expirationDate).toUTCString(),doc.erpType,doc.receiverRUT,doc.rutIssuing)
   };
     $scope.solicitardefinitivo = function(){ 
       getData.sendRequest(AuthService.token(),$scope.index,function(response){
@@ -202,19 +202,38 @@ angular.module('starter')
 
 .controller('showOffers',function($ionicHistory,  passingData, getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){
   $scope.detalle = function(index){
-    $scope.oferta = $scope.recibido[index];
-    $rootScope.$broadcast('detalle:updated',index);
+    passingData.setData($scope.recibido[index]);
+    $rootScope.$broadcast('detalle:updated',$scope.recibido[index]);
     $state.go('tabs.detalleoferta');
   };
   $scope.$on('showoff:updated', function(event,response) {
     $scope.recibido  = response;
     $state.go($state.current, {}, {reload: true});
   });
-  $scope.$on('detalle:updated', function(event,index) {
-    $scope.oferta = $scope.recibido[index];
-    $state.go($state.current);
-  });
+
   $rootScope.$broadcast('showoff:updated',passingData.getData());
+  $scope.retornar = function(){
+    passingData.setData({});
+    $state.go('tabs.ofertas', {}, {reload: true});
+  };
+})
+
+.controller('offerDetails',function($ionicHistory,  passingData, getData,AuthService,$state, $rootScope, $ionicModal, $ionicPopup, $scope, $ionicLoading){
+  $scope.fecha = function(date){
+    return new Date(date).toUTCString()
+  }
+  $scope.pesos = function(monto){
+    var Format = wNumb({
+      prefix: '$',
+      decimals: 0,
+      thousand: '.'
+    });
+    return Format.to(monto);
+  };
+  $scope.oferta = passingData.getData();
+  $scope.$on('detalle:updated', function(event,response) {
+    $scope.oferta = response;
+  });
   $scope.aceptar = function(){
     var alertPopup = $ionicPopup.alert({
       title: 'Confirmación',
@@ -228,9 +247,9 @@ angular.module('starter')
       template: 'Oferta Rechazada!'
     });
     $state.go('tabs.ofertas', {}, {reload: true});
-  }
+  };
   $scope.retornar = function(){
     passingData.setData({});
-    $state.go('tabs.ofertas', {}, {reload: true});
-  }
+    $state.go('tabs.revisar');
+  };
 })

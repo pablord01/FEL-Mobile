@@ -1,43 +1,27 @@
-      
-        
-      
-        <ion-content padding="true"  class="has-header hass-footer">
-          <div class="banner-top" style=" background: url(../img/banner-img.png);
-          ">
-          <h2 class="titulo-banner">Financiar tu empresa debería ser simple, rápido y seguro.</h2>
-        </div>
-        <!--CAMBIO DE ESTILO
-        <a href="#/tab/solicitud"><div class="dis-financiar">
-          <h2>$ 265.200.000</h2>
-          <p>Disponible a financiar</p>
-        </div></a>
-        -->
-          <div class="row  notifica-home">
-          <!-- Semanticamente incorrecto pero funciona para poner un href a un div -->
-          <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/solicitud';" >
-            <div class="col-notifica financia">
-              <h3 class="numero">{{available}}</h3>
-              <p class="notifica-titulo"><font color="orange"><b>></b></font> Disponible a Financiar</p>
-            </div>
-          </div>
-        </div>
-        
-        <div class="row  notifica-home">
-          <!-- Semanticamente incorrecto pero funciona para poner un href a un div -->
-          <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/ofertas';" >
-            <div class="col-notifica ofertas">
-              <h3 class="numero">{{offers}}</h3>
-              <p class="notifica-titulo"><font color="orange"><b>></b></font> Ofertas</p>
-            </div>
-          </div>
-          <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/pendientes';">
-            <div class="col-notifica  pendientes">
-              <h3 class="numero">{{offerspending}}</h3>
-              <p class="notifica-titulo"><font color="orange"><b>></b></font> Pendientes</p>
-            </div>
-          </div>
-        </div>
-        
-            
-      </ion-content>
-       
+<ion-content padding="true"  class="has-header hass-footer">
+  <div class="banner-top" style=" background: url(../img/banner-img.png);">
+    <h2 class="titulo-banner">Financiar tu empresa debería ser simple, rápido y seguro.</h2>
+  </div>
+  <div class="row  notifica-home">
+    <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/solicitud';" >
+      <div class="col-notifica financia">
+        <h3 class="numero">{{available}}</h3>
+        <p class="notifica-titulo"><font color="orange"><b>></b></font> Disponible a Financiar</p>
+      </div>
+    </div>
+  </div>
+  <div class="row  notifica-home">
+    <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/ofertas';" >
+      <div class="col-notifica ofertas">
+        <h3 class="numero">{{offers}}</h3>
+        <p class="notifica-titulo"><font color="orange"><b>></b></font> Ofertas</p>
+      </div>
+    </div>
+    <div class="col" style="cursor: pointer;" onclick="window.location='#/tab/pendientes';">
+      <div class="col-notifica  pendientes">
+        <h3 class="numero">{{offerspending}}</h3>
+        <p class="notifica-titulo"><font color="orange"><b>></b></font> Pendientes</p>
+      </div>
+    </div>
+  </div>
+</ion-content>

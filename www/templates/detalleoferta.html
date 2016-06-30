@@ -1,41 +1,33 @@
-
-
-     	 <div class="bar bar-subheader1 item-input-inset dis-financiarofertas-small" >
-   			<div >
-				<h3>Detalle Oferta</h3>			
-			</div>
-   		</div>
+<div class="bar bar-subheader1 item-input-inset dis-financiarofertas-small" >
+	<div >
+		<h3>Detalle Oferta</h3>			
+	</div>
+</div>
    	
-    <ion-content padding="true" class="has-header2" ng-controller="solicitudCtrl">
-    <div class = "row2">
-    	<h4><center>¿Deseas aceptar la oferta realizada por el siguiente Factoring?</center></h4>
-    </div>
-    
-      <h3 class="oferta"><font color="black"><b>Factoring: {{oferta}}</b></font></h3>
-      <h3 class="ofertasinborde">Valor: $545.544.-</h3>
-      <h3 class="ofertasinborde">ID: {{oferta.id}}</h3>
-      <h3 class="ofertasinborde">Comisión: {{oferta.commissions}}</h3>
-      <h3 class="oferta">Tasa: 0,5%</h3>              
-      <p class="notifica-titulo"><font color="red" size ="3"><b>MONTO FINAL: </b></font> 
-        <font color = "black" size = "4">$145.874.873.-</font>
-      </p>
-
-   				
-              
-    </ion-content>     
+<ion-content padding="true" class="has-header2" ng-controller="solicitudCtrl">
+  <div class = "row2">
+   	<h4><center>¿Deseas aceptar la oferta realizada por el siguiente Factoring?</center></h4>
+  </div>
+  <h4 class="oferta">ID Oferta: {{oferta.id}}</h3>
+  <h4 class="oferta"><font color="black"><b>Factoring: {{oferta.factoringName}}</b></font></h3>
+  <h4 class="ofertasinborde">Gastos por transacción: {{pesos(oferta.expenses)}}</h3>
+  <h4 class="ofertasinborde">Comisión: {{pesos(oferta.commissions)}}</h3>
+  <h4 class="oferta">Tasa de interés: {{oferta.rate}}%</h3>
+  <h4 class="oferta">Expiración de la oferta: {{fecha(oferta.expire)}}</h3>              
+  <p class="notifica-titulo"><font color="red" size ="3"><b>MONTO A FINANCIAR: </b></font> 
+    <font color = "black" size = "4">{{pesos(oferta.financialAmmount)}}</font>
+  </p>
+</ion-content>   
   
-    <div class = "row fixed-outside">
-		   <div class = "col col-40">
-		   		<a class="button icon icon-left ion-chevron-left" ng-click="retornar()">Volver</a> 
-		   		
-		   </div>
-        <div class = "col col-30" ng-click="rechazar()">
-          <a class="button button-naranja-df3 icon icon-right ion-close-round" 
-          ><b>No</b></a> 
-       </div>
-		   <div class = "col col-30" ng-click="aceptar()">
-		   		<a class="button button-naranja-df2 icon icon-right ion-checkmark" 
-          ><b>Si</b></a> 
-		   </div>
-		</div> 
+<div class = "row fixed-outside">
+  <div class = "col col-40">
+ 		<a class="button icon icon-left ion-chevron-left" ng-click="retornar()">Volver</a> 
+	</div>
+  <div class = "col col-30" ng-click="rechazar()">
+    <a class="button button-naranja-df3 icon icon-right ion-close-round"><b>No</b></a> 
+  </div>
+	<div class = "col col-30" ng-click="aceptar()">
+		<a class="button button-naranja-df2 icon icon-right ion-checkmark"><b>Si</b></a> 
+	</div>
+</div> 
 
